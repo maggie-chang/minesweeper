@@ -1,0 +1,18 @@
+Square object:
+    - value to represent the num
+        - pos int = # of bombs touching
+        - 0 no number
+        - -1 = bomb
+    - boolean
+        - true if square is uncovered
+        - false if not
+    - flag: has to be covered (enforce in a setter; eg boolean setHasFlag)
+        - if player puts down a flag on that square
+        - 
+
+1  *  *
+*  *  *
+*  *  *
+
+look at each square
+    add 1 to the square around it (per bomb) if its not a bomb
