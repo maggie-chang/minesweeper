@@ -8,7 +8,7 @@ public class Square {
     public static String FLAG_DISPLAY = "F";
     public static String COVERED_DISPLAY = "*";
     public static String EMPTY_DISPLAY = " ";
-    public static String BOMB_DISPLAY = "o";
+    public static String BOMB_DISPLAY = "x";
 
 
     public Square(int num, boolean flag) {
