@@ -3,7 +3,7 @@ public class Square {
     private int num;
     private boolean isUncovered = false;
     private boolean flag = false;
-    private boolean DEBUG_MODE = true;
+    private boolean DEBUG_MODE = true; //uncovers the board if true
 
     public static String FLAG_DISPLAY = "F";
     public static String COVERED_DISPLAY = "*";
@@ -49,6 +49,7 @@ public class Square {
     }
 
 
+    //display method toString
     public String toString() {
         if (getIsUncovered() || DEBUG_MODE) {
             if (getNumVal() == 0) {

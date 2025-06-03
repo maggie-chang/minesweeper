@@ -9,7 +9,37 @@ public class Game {
 
     
     public Game() {
-        board.printBoard();
+        int bombCount = 0;
+        while (bombCount < board.NUM_BOMB) {
+            board.printBoard();
+
+            System.out.print("Exter the x-coodinate you want to check: ");
+            int x = scanner.nextInt();
+
+            System.out.print("Exter the y-coodinate you want to check: ");
+            int y = scanner.nextInt();
+
+            System.out.print("(f)lag or (b)break (" + x + "," + y + ")?: ");
+            String fOrB = scanner.nextLine();
+
+            if (fOrB.equals("b")) {
+                //board[x][y].setIsUncovered();
+                int squareVal = board.checkCoordinates(x, y);
+
+                if (squareVal == board.BOMB_VAL) {
+                    System.out.println("You lost!");
+                }
+            }
+            else if (fOrB.equals("f")) {
+
+            }
+            else {
+                System.out.println("you are bad");
+            }
+
+            bombCount++;
+            break;
+        }
     }
 
     public void printIntro() {
@@ -17,19 +47,6 @@ public class Game {
     }
 
     public void runBoard() {
-        
-    }
-
-    public void arrayTest() {
-        String[][] arr = new String[4][6];
-        int n = (int) Math.random()*1 + 4;
-
-
-        for (int i = 0; i < arr.length; i++) {
-            for (int h = 0; h < arr[0].length; h++) {
-
-            }
-        }
     }
   
 

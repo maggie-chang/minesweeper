@@ -3,19 +3,17 @@ import java.util.ArrayList;
 public class Board {
 
     private int num = (int) Math.random()*1 + 4;
-    private Square[][] board = new Square[10][10];
-    private final int flagNum = 10;
-    private final int NUM_BOMB = 15;
-    private final int BOMB_VAL = -1;
+    private Square[][] board = new Square[7][10];
+
+    public final int flagNum = 10;
+    public final int NUM_BOMB = 15;
+    public final int BOMB_VAL = -1;
 
     public Board() {
         fillBoard();
     }
 
-    private int randomizeBomb() {
-        return num;
-    }
-
+    // initializes each square on the board and returns the filled board
     public Square[][] fillBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
@@ -23,12 +21,16 @@ public class Board {
             }
         }
 
+        //randomizes bomb placement
         for (int i = 0; i < NUM_BOMB; i++){
             int rx = (int)(Math.random() * board.length);
             int ry = (int)(Math.random() * board[0].length);
             board[rx][ry] = new Square(BOMB_VAL, false);
         }
 
+        /* ensures not indexoutofbounds and checks if bomb
+          increments num (Square class) if square is not -1 (bomb)
+        */
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j].isBomb()) {
@@ -72,6 +74,18 @@ public class Board {
             System.out.println();
             System.out.println();
         }
+    }
+
+    public int checkCoordinates(int x, int y) {
+        Square currSquare = board[x][y];
+        if (currSquare.isBomb() && !currSquare.getIsUncovered()) {
+            currSquare.getIsUncovered();
+            return BOMB_VAL;
+        }
+        if (currSquare.getNumVal() == 0) {
+            
+        }
+        return 0;
     }
 
 }
