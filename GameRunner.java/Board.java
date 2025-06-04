@@ -88,4 +88,8 @@ public class Board {
         return 0;
     }
 
+    public Square[][] getBoard() {
+        return board;
+    }
+
 }

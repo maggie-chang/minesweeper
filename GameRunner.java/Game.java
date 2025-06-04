@@ -1,18 +1,18 @@
 //import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
 
     Scanner scanner = new Scanner(System.in);
     Board board = new Board();
-
+    Square[][] sqrBoard = board.getBoard();
     
+
     public Game() {
         int bombCount = 0;
         while (bombCount < board.NUM_BOMB) {
             board.printBoard();
-
+            
             System.out.print("x-coord: ");
             int x = scanner.nextInt();
 
@@ -20,38 +20,44 @@ public class Game {
             int y = scanner.nextInt();
             scanner.nextLine(); // not questioning this and not i pray to stackOverflow users daily
 
-            System.out.print("(f)lag or (b)break (" + x + "," + y + ")?: ");
-            String fOrB = scanner.nextLine();
-
-            System.out.println("TEST");
-            if (fOrB.equals("b")) {
-                //board[x][y].setIsUncovered();
-                int squareVal = board.checkCoordinates(x, y);
-                System.out.println("TEST");
-
-                if (squareVal == board.BOMB_VAL) {
-                    System.out.println("You lost!");
-                }
+            if ((x > sqrBoard.length-1) || (y > sqrBoard[0].length-1)) {
+                System.out.println("Please enter coordinates within the board size.");
             }
-            else if (fOrB.equals("f")) {
-                System.out.println("TEST");
-
-            }
-            /* 
             else {
-                System.out.println("you are bad");
-            }
+                System.out.print("(f)lag or (b)break (" + x + "," + y + ")?: ");
+                String fOrB = scanner.nextLine();
 
-            bombCount++;
-            //break; */
+                //System.out.println("TEST");
+                if (fOrB.equals("b")) {
+                    board.getBoard()[x][y].setIsUncovered();
+                    int squareVal = board.checkCoordinates(x, y);
+                    //System.out.println("TEST");
+
+                    if (squareVal == board.BOMB_VAL) {
+                        System.out.println("You lost!");
+                        break;
+                    }
+                }
+                else if (fOrB.equals("f")) {
+                    System.out.println("TEST");
+
+                }
+                else {
+                    System.out.println("you are bad");
+                }
+
+                bombCount++;
+                //break; */
+            }
         }
     }
 
     public void printIntro() {
-
+        System.out.print("");
     }
 
     public void runBoard() {
+        
     }
   
 
