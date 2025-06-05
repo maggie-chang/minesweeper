@@ -3,15 +3,16 @@ import java.util.ArrayList;
 public class Board {
 
     private int num = (int) Math.random()*1 + 4;
-    private Square[][] board = new Square[7][10];
+    private Square[][] board = new Square[3][5];
 
     public final int flagNum = 10;
-    public final int NUM_BOMB = 15;
+    public final int NUM_BOMB = 10;
     public final int BOMB_VAL = -1;
 
     public Board() {
         fillBoard();
     }
+
 
     // initializes each square on the board and returns the filled board
     public Square[][] fillBoard() {
@@ -66,27 +67,47 @@ public class Board {
 
     }
 
+
     public void printBoard() {
+
+        for (int k = 0; k <= board[0].length-1; k++) { 
+            if (k == 0) {
+                System.out.print("    ");
+            }
+            System.out.print(k + "  ");
+        }
+        System.out.println();
+        for (int f = 0; f <= board[0].length; f++) {
+            System.out.print("---");
+        }
+        System.out.println();
+
         for (int i = 0; i < board.length; i++) {
+            System.out.print(i + " | ");
             for (int j = 0; j < board[0].length; j++) {
-                    System.out.print(board[i][j] + "  ");
+                //System.out.print(j);
+                System.out.print(board[i][j] + "  ");
             }
             System.out.println();
             System.out.println();
         }
     }
 
-    public int checkCoordinates(int x, int y) {
-        Square currSquare = board[x][y];
-        if (currSquare.isBomb() && !currSquare.getIsUncovered()) {
+    // checks if its a bomb, bomb indicator (pos num), or no number
+    // returns -1 if bomb, 0 if no num, -2 if bomb indicator
+    public int checkCoordinates(int y, int x) {
+        Square currSquare = board[y][x];
+        if (currSquare.isBomb()) { //bomb condition
             currSquare.getIsUncovered();
             return BOMB_VAL;
         }
-        if (currSquare.getNumVal() == 0) {
-            
+        if (currSquare.getNumVal() == 0 && !currSquare.getIsUncovered()) { // no number
+            //currSquare.getIsUncovered();
+            return 0;
         }
-        return 0;
+        return -2;
     }
+
 
     public Square[][] getBoard() {
         return board;
