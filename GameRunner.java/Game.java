@@ -29,7 +29,6 @@ public class Game {
         System.out.println("You have " + flagCount + " flags to place on all the bombs.");
         System.out.println("");
 
-        outerLoop:
         while (flaggedBombCount < board.NUM_BOMB) {
 
             board.printBoard();
@@ -55,11 +54,10 @@ public class Game {
                 
                     if (squareVal == board.BOMB_VAL) {
                         board.getBoard()[y][x].setIsUncovered();
-                        //board.getBoard()[y][x].getIsUncovered();
-
+                        board.printBoard();
                         System.out.println("You hit a bomb!");
-                        //flaggedBombCount = board.NUM_BOMB + 1;
-                        break outerLoop;
+                        System.out.println("");
+                        break;
                     }
                     else {
                         board.getBoard()[y][x].setIsUncovered(); //defo need
@@ -89,7 +87,7 @@ public class Game {
                 if (flaggedBombCount == board.NUM_BOMB) {
                     System.out.println("You win! Thanks for flagging all the bombs :)");
                     System.out.println("");
-                    break outerLoop;
+                    break;
                 }
             }
         }

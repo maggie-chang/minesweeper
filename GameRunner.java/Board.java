@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Board {
 
     private int num = (int) Math.random()*1 + 4;
-    private Square[][] board = new Square[3][5];
+    private Square[][] board = new Square[5][5];
 
     public final int flagNum = 5;
     public final int NUM_BOMB = 5;
@@ -24,9 +24,12 @@ public class Board {
 
         //randomizes bomb placement
         for (int i = 0; i < NUM_BOMB; i++){
-            int rx = (int)(Math.random() * board.length);
-            int ry = (int)(Math.random() * board[0].length);
-            board[rx][ry] = new Square(BOMB_VAL, false);
+            int rx, ry;
+            do {
+            ry = (int)(Math.random() * board.length);
+            rx = (int)(Math.random() * board[0].length);
+            } while (board[ry][rx].isBomb());
+            board[ry][rx] = new Square(BOMB_VAL, false);
         }
 
         /* ensures not indexoutofbounds and checks if bomb
@@ -74,11 +77,11 @@ public class Board {
             if (k == 0) {
                 System.out.print("    ");
             }
-            System.out.print(k + "  ");
+            System.out.print(k + "   ");
         }
         System.out.println();
         for (int f = 0; f <= board[0].length; f++) {
-            System.out.print("---");
+            System.out.print("----");
         }
         System.out.println();
 
@@ -86,7 +89,7 @@ public class Board {
             System.out.print(i + " | ");
             for (int j = 0; j < board[0].length; j++) {
                 //System.out.print(j);
-                System.out.print(board[i][j] + "  ");
+                System.out.print(board[i][j] + "   ");
             }
             System.out.println();
             System.out.println();
@@ -97,9 +100,7 @@ public class Board {
     // returns -1 if bomb, 0 if no num, -2 if bomb indicator
     public int checkCoordinates(int y, int x) {
         Square currSquare = board[y][x];
-        if (currSquare.isBomb() ) { //bomb condition;
-            //&& currSquare.getIsUncovered() // something about this and the ! makes it so the 
-            //"x" shows up, but it messes up other things. :()
+        if (currSquare.isBomb()) { //bomb condition;
             return BOMB_VAL;
         }
         if (currSquare.getNumVal() == 0) { // no number
