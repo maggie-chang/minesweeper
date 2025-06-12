@@ -9,66 +9,95 @@ public class Game {
     
 
     public Game() {
+        //play();
+    }
 
-        int bombCount = 0;
-        while (bombCount < board.NUM_BOMB) {
+    public void printIntro() {
+        System.out.println("");
+        System.out.println("~~~");
+        System.out.println("Welcome to Minesweeper! Use coordinates (x-coord: row; y-coord: col)");
+        System.out.println("to (b)reak, (f)lag, or (u)nflag squares!");
+        System.out.println("~~~");
+
+    }
+
+    public void runBoard() {
+
+        int flaggedBombCount = 0;
+        int flagCount = board.flagNum;
+
+        System.out.println("You have " + flagCount + " flags to place on all the bombs.");
+        System.out.println("");
+
+        outerLoop:
+        while (flaggedBombCount < board.NUM_BOMB) {
+
             board.printBoard();
             
-            System.out.print("x-coord: ");
-            int x = scanner.nextInt(); // like on a graph; x is col
-
+            System.out.print("x-coord: "); // like on a graph; x is col
+            int x = Integer.parseInt(scanner.nextLine());
             System.out.print("y-coord: "); // y is row
-            int y = scanner.nextInt();
-            scanner.nextLine(); // not questioning this and not i pray to stackOverflow users daily
+            int y = Integer.parseInt(scanner.nextLine());
 
-            if ((y > sqrBoard.length-1) || (x > sqrBoard[0].length-1)) {
+            if ((y > sqrBoard.length-1) || (x > sqrBoard[0].length-1) || y < 0 || x < 0) {
                 System.out.println("Please enter coordinates within the board size.");
             }
+
             else {
+
                 System.out.print("(b)reak, (f)lag, or (u)nflag at (" + x + "," + y + ")?: ");
                 String bFU = scanner.nextLine();
                 System.out.println();
 
-                if (bFU.equals("b")) {
-                    board.getBoard()[y][x].setIsUncovered();
-                    int squareVal = board.checkCoordinates(y, x);
+                int squareVal = board.checkCoordinates(y, x);
 
-                    if (squareVal == board.BOMB_VAL) { // **NEED TO REVISE, DOES NOT SHOW BOMB WHEN LOSE
+                if (bFU.equals("b")) {
+                
+                    if (squareVal == board.BOMB_VAL) {
+                        board.getBoard()[y][x].setIsUncovered();
                         //board.getBoard()[y][x].getIsUncovered();
-                        System.out.println("You lost!");
-                        break;
+
+                        System.out.println("You hit a bomb!");
+                        //flaggedBombCount = board.NUM_BOMB + 1;
+                        break outerLoop;
                     }
-                    board.getBoard()[y][x].getIsUncovered();
+                    else {
+                        board.getBoard()[y][x].setIsUncovered(); //defo need
+                    }
                 }
+
                 else if (bFU.equals("f")) {
                     board.getBoard()[y][x].getFlag();
                     board.getBoard()[y][x].setFlag(true);
+                    flagCount--;
+                    System.out.println("Flags: " + flagCount);
+                    System.out.println("");
+
+                    if (board.getBoard()[y][x].isBomb()) {
+                        flaggedBombCount++;
+                    }
                 }
+
                 else if (bFU.equals("u")) {
                     board.getBoard()[y][x].setFlag(false);
-                }
-                else {
-                    System.out.println("you are bad");
+                    flagCount++;
+                    System.out.println("Flags: " + flagCount);
+                    System.out.println("");
+
                 }
 
-                bombCount++;
-                //break; */
+                if (flaggedBombCount == board.NUM_BOMB) {
+                    System.out.println("You win! Thanks for flagging all the bombs :)");
+                    System.out.println("");
+                    break outerLoop;
+                }
             }
         }
-    }
 
-    public void printIntro() {
-        System.out.print("");
     }
-
-    public void runBoard() {
-        
-    }
-  
 
     public void play() {
         printIntro();
-        runBoard();
-        
+        runBoard();    
     } 
 }

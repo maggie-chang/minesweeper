@@ -5,8 +5,8 @@ public class Board {
     private int num = (int) Math.random()*1 + 4;
     private Square[][] board = new Square[3][5];
 
-    public final int flagNum = 10;
-    public final int NUM_BOMB = 10;
+    public final int flagNum = 5;
+    public final int NUM_BOMB = 5;
     public final int BOMB_VAL = -1;
 
     public Board() {
@@ -97,12 +97,12 @@ public class Board {
     // returns -1 if bomb, 0 if no num, -2 if bomb indicator
     public int checkCoordinates(int y, int x) {
         Square currSquare = board[y][x];
-        if (currSquare.isBomb()) { //bomb condition
-            currSquare.getIsUncovered();
+        if (currSquare.isBomb() ) { //bomb condition;
+            //&& currSquare.getIsUncovered() // something about this and the ! makes it so the 
+            //"x" shows up, but it messes up other things. :()
             return BOMB_VAL;
         }
-        if (currSquare.getNumVal() == 0 && !currSquare.getIsUncovered()) { // no number
-            //currSquare.getIsUncovered();
+        if (currSquare.getNumVal() == 0) { // no number
             return 0;
         }
         return -2;

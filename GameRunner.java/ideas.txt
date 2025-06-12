@@ -16,3 +16,11 @@ Square object:
 
 look at each square
     add 1 to the square around it (per bomb) if its not a bomb
+
+
+
+
+/*
+while (!bFU.equals("b") && !bFU.equals("f") && !bFU.equals("u")) {
+    System.out.println("Please enter 'b', 'f', or 'u'.");
+} */

@@ -51,11 +51,13 @@ public class Square {
 
     //display method toString
     public String toString() {
+
         if (getIsUncovered() || DEBUG_MODE) {
             if (getNumVal() == 0) {
                 return EMPTY_DISPLAY;
             }
-            else if (getNumVal() < 0) {
+            else if (getNumVal() == -1) {
+                //System.out.println("bombbbb");
                 return BOMB_DISPLAY;
             }
             else {
